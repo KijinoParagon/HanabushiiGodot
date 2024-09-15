@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://civ4pv8g7b6ew"]
+
+[ext_resource type="Script" path="res://Level.cs" id="1_cxxrn"]
+[ext_resource type="Texture2D" uid="uid://dveksowgtpjl5" path="res://Background 3.png" id="1_twl51"]
+[ext_resource type="PackedScene" uid="uid://cnyit8680qyhl" path="res://Akio2.tscn" id="2_xuhhv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tt1le"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_twl51")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c5dle"]
+size = Vector2(815, 43.5)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_cxxrn")
+
+[node name="BG" type="StaticBody2D" parent="."]
+metadata/terrain = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BG"]
+position = Vector2(338, 98)
+sprite_frames = SubResource("SpriteFrames_tt1le")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BG"]
+position = Vector2(425, 318.75)
+shape = SubResource("RectangleShape2D_c5dle")
+metadata/class = "Terrain"
+
+[node name="Akio" parent="." instance=ExtResource("2_xuhhv")]
+position = Vector2(289, 200)
+speed = 200
+gravity = 3000
+jumpVelocity = 10
+maxJumpTime = 0.2
