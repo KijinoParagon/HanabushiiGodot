@@ -1,7 +1,23 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0yhtfkjcj3i5"]
+[gd_scene load_steps=13 format=3 uid="uid://d0yhtfkjcj3i5"]
 
 [ext_resource type="Script" path="res://AkioChar.cs" id="1_c247s"]
 [ext_resource type="Texture2D" uid="uid://6rusp3qxvdr6" path="res://sprite_sheet.png" id="1_vt0gi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61apn"]
+atlas = ExtResource("1_vt0gi")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gh7np"]
+atlas = ExtResource("1_vt0gi")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k06sx"]
+atlas = ExtResource("1_vt0gi")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18cii"]
+atlas = ExtResource("1_vt0gi")
+region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q8tmn"]
 atlas = ExtResource("1_vt0gi")
@@ -21,6 +37,28 @@ region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8erl5"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61apn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gh7np")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k06sx")
+}],
+"loop": true,
+"name": &"DoubleJump",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18cii")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_q8tmn")
@@ -55,8 +93,8 @@ metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8erl5")
-animation = &"move"
-frame_progress = 0.308474
+animation = &"Jump"
+frame_progress = 0.0166893
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

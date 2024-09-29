@@ -1,38 +1,107 @@
-[gd_scene load_steps=6 format=3 uid="uid://civ4pv8g7b6ew"]
+[gd_scene load_steps=8 format=3 uid="uid://civ4pv8g7b6ew"]
 
 [ext_resource type="Script" path="res://Level.cs" id="1_cxxrn"]
-[ext_resource type="Texture2D" uid="uid://dveksowgtpjl5" path="res://Background 3.png" id="1_twl51"]
 [ext_resource type="PackedScene" uid="uid://cnyit8680qyhl" path="res://Akio2.tscn" id="2_xuhhv"]
+[ext_resource type="PackedScene" uid="uid://dnru1cse3riar" path="res://ground_piece.tscn" id="4_homgc"]
+[ext_resource type="Texture2D" uid="uid://6rusp3qxvdr6" path="res://sprite_sheet.png" id="4_lmesw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2xtt"]
+atlas = ExtResource("4_lmesw")
+region = Rect2(448, 256, 64, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tt1le"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_twl51")
+"texture": SubResource("AtlasTexture_w2xtt")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c5dle"]
-size = Vector2(815, 43.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_31gp3"]
+size = Vector2(63, 255)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_cxxrn")
 
-[node name="BG" type="StaticBody2D" parent="."]
-metadata/terrain = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BG"]
-position = Vector2(338, 98)
-sprite_frames = SubResource("SpriteFrames_tt1le")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BG"]
-position = Vector2(425, 318.75)
-shape = SubResource("RectangleShape2D_c5dle")
-metadata/Terrain = true
-
 [node name="Akio" parent="." instance=ExtResource("2_xuhhv")]
 position = Vector2(289, 200)
-JumpHeight = 399.47
+JumpHeight = 450.0
+
+[node name="Camera2D" type="Camera2D" parent="Akio"]
+position = Vector2(5, -24)
+
+[node name="GroundPiece2" parent="." instance=ExtResource("4_homgc")]
+position = Vector2(506, 175)
+
+[node name="GroundPiece3" parent="." instance=ExtResource("4_homgc")]
+position = Vector2(27, 214)
+
+[node name="Ground" type="Node" parent="."]
+
+[node name="GroundPiece2" parent="Ground" instance=ExtResource("4_homgc")]
+position = Vector2(50, 309)
+
+[node name="GroundPiece5" parent="Ground" instance=ExtResource("4_homgc")]
+position = Vector2(114, 309)
+
+[node name="GroundPiece" parent="Ground" instance=ExtResource("4_homgc")]
+position = Vector2(178, 309)
+
+[node name="GroundPiece4" parent="Ground" instance=ExtResource("4_homgc")]
+position = Vector2(242, 309)
+
+[node name="GroundPiece3" parent="Ground" instance=ExtResource("4_homgc")]
+position = Vector2(178, 309)
+
+[node name="GroundPiece6" parent="Ground" instance=ExtResource("4_homgc")]
+position = Vector2(242, 309)
+
+[node name="GroundPiece7" parent="Ground" instance=ExtResource("4_homgc")]
+position = Vector2(307, 309)
+
+[node name="GroundPiece8" parent="Ground" instance=ExtResource("4_homgc")]
+position = Vector2(370, 309)
+
+[node name="BigWall" type="StaticBody2D" parent="."]
+position = Vector2(117, -5)
+metadata/terrain = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BigWall"]
+sprite_frames = SubResource("SpriteFrames_tt1le")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BigWall"]
+shape = SubResource("RectangleShape2D_31gp3")
+
+[node name="BigWall2" type="StaticBody2D" parent="."]
+position = Vector2(438, 278)
+metadata/terrain = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BigWall2"]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_tt1le")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BigWall2"]
+shape = SubResource("RectangleShape2D_31gp3")
+
+[node name="BigWall3" type="StaticBody2D" parent="."]
+position = Vector2(-36, 106)
+metadata/terrain = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BigWall3"]
+sprite_frames = SubResource("SpriteFrames_tt1le")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BigWall3"]
+shape = SubResource("RectangleShape2D_31gp3")
+
+[node name="BigWall4" type="StaticBody2D" parent="."]
+position = Vector2(-33, -224)
+metadata/terrain = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BigWall4"]
+sprite_frames = SubResource("SpriteFrames_tt1le")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BigWall4"]
+shape = SubResource("RectangleShape2D_31gp3")

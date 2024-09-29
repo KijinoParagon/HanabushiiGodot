@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnyit8680qyhl"]
+[gd_scene load_steps=13 format=3 uid="uid://cnyit8680qyhl"]
 
 [ext_resource type="Script" path="res://AkioChar.cs" id="1_0v3jn"]
 [ext_resource type="Texture2D" uid="uid://6rusp3qxvdr6" path="res://sprite_sheet.png" id="2_ardv7"]
@@ -6,6 +6,22 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ptpcq"]
 radius = 12.0
 height = 56.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61apn"]
+atlas = ExtResource("2_ardv7")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gh7np"]
+atlas = ExtResource("2_ardv7")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k06sx"]
+atlas = ExtResource("2_ardv7")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18cii"]
+atlas = ExtResource("2_ardv7")
+region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q8tmn"]
 atlas = ExtResource("2_ardv7")
@@ -25,6 +41,28 @@ region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qywtc"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61apn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gh7np")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k06sx")
+}],
+"loop": true,
+"name": &"DoubleJump",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18cii")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_q8tmn")

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnru1cse3riar"]
+
+[ext_resource type="Texture2D" uid="uid://6rusp3qxvdr6" path="res://sprite_sheet.png" id="1_sbcpq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hekle"]
+atlas = ExtResource("1_sbcpq")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8tctn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hekle")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5iee"]
+size = Vector2(63.5, 36.75)
+
+[node name="GroundPiece" type="StaticBody2D"]
+metadata/Terrain = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -5)
+sprite_frames = SubResource("SpriteFrames_8tctn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_y5iee")
