@@ -31,11 +31,8 @@ sprite_frames = SubResource("SpriteFrames_tt1le")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BG"]
 position = Vector2(425, 318.75)
 shape = SubResource("RectangleShape2D_c5dle")
-metadata/class = "Terrain"
+metadata/Terrain = true
 
 [node name="Akio" parent="." instance=ExtResource("2_xuhhv")]
 position = Vector2(289, 200)
-speed = 200
-gravity = 3000
-jumpVelocity = 10
-maxJumpTime = 0.2
+JumpHeight = 399.47

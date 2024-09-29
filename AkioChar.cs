@@ -4,28 +4,36 @@ using System.Linq;
 
 public partial class AkioChar : CharacterBody2D
 {
+	enum MoveStates : int {
+		Idle,
+		Walk,
+		Run
+	}
 
-	[Export]
-	public int speed {get; set;}
-	[Export]
-	public int gravity {get; set;}
+	enum SlideStates : int {
+		None,
+		Slide,
+		Roll
+	}
 
-	[Export]
-	public int jumpVelocity {get; set;}
-	[Export]
-	public float maxJumpTime = 1;
-	public float jumpTime = 0;
-	//Vector2 velocity = Vector2.Zero;
-	AnimatedSprite2D sprite;
+	enum JumpStates : int {
+		Ground,
+		Jump,
+		WallJump, 
+		DoubleJump,
+		DoubleWallJump
 
-	Vector2 velocity;
-	bool moving = false;
-	bool faceLeft = false;
-	bool run = false;
-	int runSpeed = 1;
+	}
+	JumpStates JumpState = JumpStates.Ground;
+	MoveStates MoveState = MoveStates.Idle;
+	SlideStates SlideState = SlideStates.None;
 	
-	string state = "Idle";
-	int jump = 0;
+	//Vector2 velocity = Vector2.Zero;
+	bool onGround = false;
+	AnimatedSprite2D sprite;
+	Vector2 velocity;
+	[Export]
+	float JumpHeight = 600;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -36,94 +44,58 @@ public partial class AkioChar : CharacterBody2D
 		sprite.Play();
 		velocity.X = 0;
 		velocity.Y = 0;
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("Left")){
-			velocity.X -= speed;
-			moving = true;
-			faceLeft = true;
-		}
-
-		if (Input.IsActionJustPressed("Right")){
-			velocity.X += speed;
-			moving = true;
-			faceLeft = false;
-		}
-		
-
-		if (Input.IsActionJustPressed("Down")){
-			//
-		}
-		if (Input.IsActionJustReleased("Left")){
-			velocity.X += speed;
-			moving = false;
-		}
-
-		if (Input.IsActionJustReleased("Right")){
-			velocity.X -= speed;
-			moving = false;
-		}
-		if (Input.IsActionJustReleased("Up") && jump%2 == 0){
-			jump--;
-		}
-
-		if (Input.IsActionJustReleased("Down")){
-			//
-		}
-
-		if (Input.IsActionPressed("Run"))
+		if (velocity.Y <= 1200 && !onGround)
 		{
-			run = true;
-			runSpeed = 2;
-		}
-		else {
-			run = false;
-			runSpeed = 1;
+			velocity.Y += (float) (1200 * (delta));
 		}
 
-		if (!moving)
+		if (Input.IsActionJustPressed("Up"))
 		{
-			sprite.Animation = "default";
-		}
-		else {
-			sprite.Animation = "move";
-			if(run)
-				sprite.SpeedScale = 2;
-			else
-				sprite.SpeedScale = 1;
+			if(JumpState == JumpStates.Ground)
+			{
+				velocity.Y = -JumpHeight;
+				JumpState = JumpStates.Jump;
+			}
+			else if (JumpState == JumpStates.Jump)
+			{
+				velocity.Y =  -JumpHeight;
+				JumpState = JumpStates.DoubleJump;
+			}
+			
 		}
 
-		if(!IsOnFloor())
-		{
-			velocity.Y += gravity * (float) delta;
+		if (Input.IsActionPressed("Left")){
+			velocity.X = (float) -(300);
 		}
-		else {
-			jump = 0;
-			jumpTime = 0;
+		if (Input.IsActionPressed("Right")){
+			velocity.X = (float) (300);
 		}
-		//We need to invert it for diminishing jump returns.
-		if (Input.IsActionPressed("Up") && jump <= 2 && jumpTime < maxJumpTime){
-			velocity.Y -= jumpVelocity * (float) delta * 500;
-			GD.Print("Jumping");
-			jumpTime += (float) delta;
+		if (Input.IsActionJustReleased("Left") || Input.IsActionJustReleased("Right")) {
+			velocity.X = 0;
 		}
-		if(Input.IsActionJustReleased("Up")){
-			jump+=2;
-			jumpTime = 0;
-		}
-		sprite.FlipH = faceLeft;
-		//var col = MoveAndCollide(velocity).GetCollider();
+
+		GD.Print(velocity);
 		Velocity = velocity;
-		MoveAndSlide();
-		//var colM = col.GetMeta("Terrain");
-		//Position += velocity * runSpeed;
-		
-			
-			
-		
+		MoveAndSlide();	
+	
+		onGround = false;
+		//Checking for hitting ground below Akio
+		for (int i = 0; i < GetSlideCollisionCount(); i++) 
+		{ 
+			KinematicCollision2D collision = GetSlideCollision(i);
+			GD.Print(collision.GetNormal());
+			if (collision.GetNormal().Y == -1 ){
+				JumpState = JumpStates.Ground;
+				onGround = true;
+				velocity.Y = 0;
+			}	
+		}
 
 		
 	}
