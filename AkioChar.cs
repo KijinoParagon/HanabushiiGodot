@@ -71,6 +71,19 @@ public partial class AkioChar : CharacterBody2D
 			velocity.Y += (float) (1200 * delta);
 		}
 
+		if(velocity.X > 0)
+		{
+			velocity.X -= (float) (delta * 1200);
+			if(velocity.X < 0)
+				velocity.X = 0;
+		}
+		if(velocity.X < 0)
+		{
+			velocity.X += (float) (delta * 1200);
+			if(velocity.X > 0)
+				velocity.X = 0;
+		}
+
 		//How to handle the jump input
 		if (Input.IsActionJustPressed("Up")){
 
@@ -126,10 +139,23 @@ public partial class AkioChar : CharacterBody2D
 				sprite.Play("move");
 		}
 
+		if (Input.IsActionJustPressed("Down"))
+		{
+			if(sprite.FlipH)
+				velocity.X = (float) -(600);
+			else
+				velocity.X = (float) (600);
+			sprite.Play("Slide");
+		}
+
 		//This stops them if they let go of a direction
 		//The horizontal movement system can use some improvement
 		if (Input.IsActionJustReleased("Left") || Input.IsActionJustReleased("Right")) {
-			velocity.X = 0;
+			sprite.Play("default");
+		}
+
+		if(onGround && velocity.X == 0)
+		{
 			sprite.Play("default");
 		}
 

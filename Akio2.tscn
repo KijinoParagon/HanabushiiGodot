@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cnyit8680qyhl"]
+[gd_scene load_steps=14 format=3 uid="uid://cnyit8680qyhl"]
 
 [ext_resource type="Script" path="res://AkioChar.cs" id="1_0v3jn"]
 [ext_resource type="Texture2D" uid="uid://6rusp3qxvdr6" path="res://sprite_sheet.png" id="2_ardv7"]
@@ -22,6 +22,10 @@ region = Rect2(448, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_18cii"]
 atlas = ExtResource("2_ardv7")
 region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7u87"]
+atlas = ExtResource("2_ardv7")
+region = Rect2(448, 128, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q8tmn"]
 atlas = ExtResource("2_ardv7")
@@ -65,6 +69,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_k7u87")
+}],
+"loop": true,
+"name": &"Slide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_q8tmn")
 }],
 "loop": true,
@@ -97,5 +109,5 @@ metadata/_edit_group_ = true
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_qywtc")
-animation = &"move"
+animation = &"Slide"
 metadata/_edit_group_ = true
